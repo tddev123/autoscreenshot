@@ -12,10 +12,6 @@ folder = "screenshots"
 Path(folder).mkdir(parents=True, exist_ok=True)
 
 @app.get("/")
-def read_root():
-    return {"message": "Hello, FastAPI!"}
-
-@app.get("/take_screenshots/")
 def take_screenshots():
     with mss.mss() as sct:
         # Take screenshots every second for 10 seconds
@@ -27,10 +23,4 @@ def take_screenshots():
 
     return {"message": "10 screenshots taken and saved!", "folder": folder}
 
-@app.get("/download_screenshot/{filename}")
-def download_screenshot(filename: str):
-    file_path = os.path.join(folder, filename)
-    if os.path.exists(file_path):
-        return FileResponse(file_path)
-    else:
-        return {"message": "File not found."}
+
